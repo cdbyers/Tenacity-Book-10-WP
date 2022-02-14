@@ -4,9 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { ContentViewportComponent } from './content-viewport/content-viewport.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ContentViewportComponent],
   imports: [BrowserModule, BrowserAnimationsModule, MaterialModule],
   providers: [],
   bootstrap: [AppComponent],

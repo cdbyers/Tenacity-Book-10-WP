@@ -1,0 +1,7 @@
+<cdk-virtual-scroll-viewport #viewport orientation="horizontal" [itemSize]="pageWidth" class="h-full viewport"
+    style="overflow: hidden;">
+    <div *cdkVirtualFor="let color of ['red','green','yellow','blue','orange']; let index=index"
+        [style.width.px]="pageWidth" [style.background-color]="color">
+        Page {{index+1}}
+    </div>
+</cdk-virtual-scroll-viewport>
