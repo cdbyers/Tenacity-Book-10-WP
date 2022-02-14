@@ -8,6 +8,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'etlearns-book';
   isFullscreen = false;
+  isSideNavOpen = true;
+  currentPage = 1;
+  pages = ['Page 1', 'Page 2', 'Page 3'];
 
   ngOnInit() {
     this.isFullscreen = !!document.fullscreenElement;
@@ -25,7 +28,11 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.isFullscreen) document.exitFullscreen();
     else document.documentElement.requestFullscreen();
   }
- 
+
+  toggleSideNav() {
+    this.isSideNavOpen = !this.isSideNavOpen;
+  }
+
   fullscreenChangeHandler = (() => {
     this.isFullscreen = !!document.fullscreenElement;
   }).bind(this);

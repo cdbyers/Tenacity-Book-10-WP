@@ -1,28 +1,28 @@
 <div class="flex flex-col h-full">
-  <mat-progress-bar [value]="75"></mat-progress-bar>
+  <mat-progress-bar [value]="100 * currentPage/pages.length"></mat-progress-bar>
   <div class="toolbar shadow-md">
-    <button id="menu-toggle">
+    <button id="menu-toggle" (click)="toggleSideNav()">
       <span class="material-icons text-white">
         menu
       </span>
     </button>
 
-    <h1 class="flex-1 font-semibold text-2xl" style="margin: 0;">Current Chapter</h1>
+    <h1 class="flex-1 font-semibold text-2xl" style="margin: 0;">{{pages[currentPage-1]}}</h1>
 
     <div class="text-2xl">
-      <b class="text-blue">7</b>
+      <b class="text-blue">{{currentPage}}</b>
       <span>/</span>
-      <b class="text-blue">9</b>
+      <b class="text-blue">{{pages.length}}</b>
     </div>
 
     <div class="controls none md:block">
-      <button>
+      <button [disabled]="currentPage == 1" (click)="currentPage = currentPage-1">
         <span class="material-icons">
           arrow_back_ios_new
         </span>
       </button>
 
-      <button>
+      <button [disabled]="currentPage == pages.length" (click)="currentPage = currentPage+1">
         <span class="material-icons">
           arrow_forward_ios
         </span>
@@ -45,5 +45,19 @@
     </div>
   </div>
 
-  <div class="flex-1 bg-red-300"></div>
+  <mat-sidenav-container class="flex-1">
+    <mat-sidenav mode="push" [(opened)]="isSideNavOpen">
+      <ul>
+        <li *ngFor="let t of pages, let index=index">
+          <a [class.active]="currentPage == index+1" (click)="currentPage = index+1">
+            <span style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{t}}</span>
+          </a>
+        </li>
+      </ul>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="h-full bg-red-300">Main content</div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

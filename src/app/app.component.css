@@ -31,3 +31,30 @@
   align-items: center;
   justify-content: center;
 }
+
+.controls button:disabled {
+  opacity: 0.5;
+}
+
+mat-sidenav {
+  width: 210px;
+}
+
+mat-sidenav li {
+}
+
+mat-sidenav a {
+  @apply font-medium text-base px-8;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border-bottom: solid 1px #e9e4ed;
+  height: 50px;
+  cursor: pointer;
+}
+
+mat-sidenav a.active {
+  background-color: #1a73d91a;
+  color: #1a73d9;
+  cursor: initial;
+}
