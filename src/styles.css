@@ -10,3 +10,6 @@
 .text-blue {
   color: #1a73d9;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
