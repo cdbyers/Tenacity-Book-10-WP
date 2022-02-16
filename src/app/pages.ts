@@ -16,4 +16,8 @@ const pages: Page[] = [
   { title: 'Language focus: Relative clauses' },
 ];
 
+for (let i = pages.length + 1; i <= 258; i++) {
+  pages.push({ title: `Page ${i}` });
+}
+
 export default pages;
