@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Page } from './types';
+import pages from './pages';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +10,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'etlearns-book';
   isFullscreen = false;
-  isSideNavOpen = true;
+  isSideNavOpen = false;
   currentPage = 1;
-  pages = ['Page 1', 'Page 2', 'Page 3'];
+  pages: Page[];
+
+  constructor() {
+    this.pages = pages;
+  }
 
   ngOnInit() {
     this.isFullscreen = !!document.fullscreenElement;

@@ -5,9 +5,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { ContentViewportComponent } from './content-viewport/content-viewport.component';
+import { PageComponent } from './page/page.component';
 
 @NgModule({
-  declarations: [AppComponent, ContentViewportComponent],
+  declarations: [AppComponent, ContentViewportComponent, PageComponent],
   imports: [BrowserModule, BrowserAnimationsModule, MaterialModule],
   providers: [],
   bootstrap: [AppComponent],

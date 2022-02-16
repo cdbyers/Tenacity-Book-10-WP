@@ -7,6 +7,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { Page } from '../types';
 
 @Component({
   selector: 'app-content-viewport',
@@ -17,6 +18,7 @@ import {
 export class ContentViewportComponent implements OnInit, AfterViewInit {
   pageWidth = 1000;
   @ViewChild('viewport') viewport?: CdkVirtualScrollViewport;
+  @Input() pages!: Page[];
   private _page: number = 1;
 
   get page(): number {

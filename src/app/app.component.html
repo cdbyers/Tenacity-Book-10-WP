@@ -7,7 +7,7 @@
       </span>
     </button>
 
-    <h1 class="flex-1 font-semibold text-2xl" style="margin: 0;">{{pages[currentPage-1]}}</h1>
+    <h1 class="flex-1 font-semibold text-2xl" style="margin: 0;">{{pages[currentPage-1].title}}</h1>
 
     <div class="text-2xl">
       <b class="text-blue">{{currentPage}}</b>
@@ -48,16 +48,16 @@
   <mat-sidenav-container class="flex-1">
     <mat-sidenav mode="push" [(opened)]="isSideNavOpen">
       <ul>
-        <li *ngFor="let t of pages, let index=index">
+        <li *ngFor="let page of pages, let index=index">
           <a [class.active]="currentPage == index+1" (click)="currentPage = index+1">
-            <span style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{t}}</span>
+            <span style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{page.title}}</span>
           </a>
         </li>
       </ul>
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <app-content-viewport class="h-full" [page]="currentPage"></app-content-viewport>
+      <app-content-viewport class="h-full" [pages]="pages" [page]="currentPage"></app-content-viewport>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
