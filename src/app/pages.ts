@@ -8,6 +8,7 @@ const pages: Page[] = [
     title: 'Take Good Care of This Textbook',
   },
   { title: 'Authors' },
+  { title: 'Table of Contents' },
 ];
 
 export default pages;

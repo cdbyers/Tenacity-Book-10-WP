@@ -3,3 +3,8 @@
 #page * {
   white-space: nowrap;
 }
+
+#page a {
+  color: #224499;
+  text-decoration: underline;
+}
