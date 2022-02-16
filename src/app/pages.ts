@@ -13,6 +13,7 @@ const pages: Page[] = [
   { title: 'Speaking & Listening' },
   { title: 'Reading: East African athletes (Part 1)' },
   { title: 'Reading: East African athletes (Part 2)' },
+  { title: 'Language focus: Relative clauses' },
 ];
 
 export default pages;
