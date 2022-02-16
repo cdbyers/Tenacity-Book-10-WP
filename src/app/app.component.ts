@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Page } from './types';
 import pages from './pages';
 
@@ -24,11 +24,16 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
     this.pages = pages;
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get('page');
     if (page && !Number.isNaN(page)) this._currentPage = Number.parseInt(page);
+
+    // For page links
+    (window as any).goToPage = (page: number) => {
+      this.ngZone.run(() => (this.currentPage = page));
+    };
   }
 
   ngOnInit() {
