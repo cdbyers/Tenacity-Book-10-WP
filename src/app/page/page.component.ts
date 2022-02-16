@@ -14,16 +14,21 @@ import {
   styleUrls: ['./page.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PageComponent implements AfterViewInit {
-  @Input() pageId: number = 1;
+export class PageComponent {
+  private _pageId: number = 1;
   loadState: 'loading' | 'success' | 'error' = 'loading';
   @ViewChild('container') container!: ElementRef;
 
-  ngAfterViewInit() {
+  get pageId(): number {
+    return this._pageId;
+  }
+  @Input() set pageId(value: number) {
+    this._pageId = value;
     this.loadContent();
   }
 
   loadContent() {
+    this.loadState = 'loading';
     fetch(`/assets/pages/${this.pageId}.html`)
       .then((response) => response.text())
       .then((html) => {
