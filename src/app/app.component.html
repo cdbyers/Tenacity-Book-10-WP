@@ -49,7 +49,7 @@
     <mat-sidenav mode="push" [(opened)]="isSideNavOpen">
       <ul>
         <li *ngFor="let page of pages, let index=index">
-          <a [class.active]="currentPage == index+1" (click)="currentPage = index+1">
+          <a [class.active]="currentPage == index+1" (click)="currentPage = index+1" [title]="page.title">
             <span style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{page.title}}</span>
           </a>
         </li>
