@@ -18,8 +18,10 @@ export class AppComponent implements OnInit, OnDestroy {
     return this._currentPage;
   }
   public set currentPage(value) {
-    window.history.pushState(null, '', `/?page=${value}`);
-    this._currentPage = value;
+    if (value > 0 && value <= pages.length) {
+      window.history.pushState(null, '', `/?page=${value}`);
+      this._currentPage = value;
+    }
   }
 
   constructor() {
