@@ -11,6 +11,7 @@ const pages: Page[] = [
   { title: 'Table of Contents' },
   { title: 'Unit 1 - Sport and fitness' },
   { title: 'Speaking & Listening' },
+  { title: 'Reading: East African athletes (Part 1)' },
 ];
 
 export default pages;
