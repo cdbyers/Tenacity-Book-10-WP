@@ -46,7 +46,7 @@
   </div>
 
   <mat-sidenav-container class="flex-1">
-    <mat-sidenav mode="push" [(opened)]="isSideNavOpen">
+    <mat-sidenav [(opened)]="isSideNavOpen">
       <ul>
         <li *ngFor="let page of pages, let index=index">
           <a [class.active]="currentPage == index+1" (click)="currentPage = index+1" [title]="page.title">
