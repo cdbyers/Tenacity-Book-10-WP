@@ -11,11 +11,22 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'etlearns-book';
   isFullscreen = false;
   isSideNavOpen = false;
-  currentPage = 1;
   pages: Page[];
+  private _currentPage = 1;
+
+  public get currentPage() {
+    return this._currentPage;
+  }
+  public set currentPage(value) {
+    window.history.pushState(null, '', `/?page=${value}`);
+    this._currentPage = value;
+  }
 
   constructor() {
     this.pages = pages;
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get('page');
+    if (page && !Number.isNaN(page)) this._currentPage = Number.parseInt(page);
   }
 
   ngOnInit() {

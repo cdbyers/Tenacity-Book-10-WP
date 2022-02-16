@@ -17,7 +17,7 @@ import { Page } from '../types';
 })
 export class ContentViewportComponent implements OnInit, AfterViewInit {
   pageWidth = 1000;
-  @ViewChild('viewport') viewport?: CdkVirtualScrollViewport;
+  @ViewChild('viewport') viewport!: CdkVirtualScrollViewport;
   @Input() pages!: Page[];
   private _page: number = 1;
 
@@ -33,6 +33,11 @@ export class ContentViewportComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit() {
-    this.pageWidth = this.viewport!.elementRef.nativeElement.clientWidth;
+    window.setTimeout(() => {
+      this.pageWidth = this.viewport.elementRef.nativeElement.clientWidth;
+    }, 0);
+    window.setTimeout(() => {
+      this.viewport.scrollToIndex(this._page - 1);
+    }, 100);
   }
 }
