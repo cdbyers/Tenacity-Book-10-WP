@@ -4,7 +4,18 @@
   white-space: nowrap;
 }
 
+#page div {
+  overflow: visible;
+}
+
 #page a {
   color: #224499;
   text-decoration: underline;
+}
+
+#page video,
+#page audio {
+  left: 50%;
+  width: 600px;
+  margin-left: -300px;
 }
