@@ -26,9 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private ngZone: NgZone) {
     this.pages = pages;
-    const urlParams = new URLSearchParams(window.location.search);
-    const page = urlParams.get('page');
-    if (page && !Number.isNaN(page)) this._currentPage = Number.parseInt(page);
+    this.onUrlChanged();
 
     // For page links
     (window as any).goToPage = (page: number) => {
@@ -39,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isFullscreen = !!document.fullscreenElement;
     document.addEventListener('fullscreenchange', this.fullscreenChangeHandler);
+    window.addEventListener('popstate', () => this.onUrlChanged());
   }
 
   ngOnDestroy() {
@@ -60,4 +59,10 @@ export class AppComponent implements OnInit, OnDestroy {
   fullscreenChangeHandler = (() => {
     this.isFullscreen = !!document.fullscreenElement;
   }).bind(this);
+
+  private onUrlChanged() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get('page');
+    if (page && !Number.isNaN(page)) this._currentPage = Number.parseInt(page);
+  }
 }
