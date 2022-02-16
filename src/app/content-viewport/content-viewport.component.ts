@@ -26,8 +26,11 @@ export class ContentViewportComponent implements OnInit, AfterViewInit {
   }
 
   @Input() set page(value: number) {
+    const delta = Math.abs(value - this._page);
     this._page = value;
-    if (this.viewport) this.viewport.scrollToIndex(value - 1, 'smooth');
+    if (this.viewport) {
+      this.viewport.scrollToIndex(value - 1, delta == 1 ? 'smooth' : undefined);
+    }
   }
 
   ngOnInit(): void {}
