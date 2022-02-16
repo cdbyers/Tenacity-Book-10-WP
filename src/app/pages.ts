@@ -9,6 +9,7 @@ const pages: Page[] = [
   },
   { title: 'Authors' },
   { title: 'Table of Contents' },
+  { title: 'Unit 1 - Sport and fitness' },
 ];
 
 export default pages;
