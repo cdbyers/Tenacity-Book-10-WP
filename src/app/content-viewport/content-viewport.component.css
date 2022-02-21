@@ -1,4 +1,4 @@
-.cdk-virtual-scroll-content-wrapper {
+app-content-viewport .cdk-virtual-scroll-content-wrapper {
   display: flex;
   flex-direction: row;
   height: 100%;

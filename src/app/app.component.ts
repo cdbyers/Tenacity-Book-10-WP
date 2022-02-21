@@ -1,4 +1,5 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Page } from './types';
 import pages from './pages';
 
@@ -12,6 +13,8 @@ export class AppComponent implements OnInit, OnDestroy {
   isFullscreen = false;
   isSideNavOpen = false;
   pages: Page[];
+  @ViewChild('sidenavScrollViewport')
+  sidenavScrollViewport!: CdkVirtualScrollViewport;
   private _currentPage = 1;
 
   public get currentPage() {
@@ -21,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (value > 0 && value <= pages.length) {
       window.history.pushState(null, '', `/?page=${value}`);
       this._currentPage = value;
+      this.isSideNavOpen = false;
     }
   }
 
@@ -54,6 +58,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   toggleSideNav() {
     this.isSideNavOpen = !this.isSideNavOpen;
+    if (this.isSideNavOpen)
+      this.sidenavScrollViewport.scrollToIndex(
+        Math.max(0, this.currentPage - 5)
+      );
   }
 
   fullscreenChangeHandler = (() => {
