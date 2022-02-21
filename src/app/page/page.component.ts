@@ -7,6 +7,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-page',
@@ -39,5 +40,10 @@ export class PageComponent {
         this.loadState = 'error';
         console.error(err);
       });
+  }
+
+  handleDoubleClick() {
+    if (!environment.production && this.loadState == 'success')
+      this.loadContent();
   }
 }
