@@ -19,3 +19,9 @@
   width: 600px;
   margin-left: -300px;
 }
+
+#page iframe {
+  left: 50%;
+  width: 800px;
+  margin-left: -400px;
+}
