@@ -1,21 +1,37 @@
-function insertContent(rootElement) {
-  rootElement = document.getElementById("pf29");
+// Load jQuery
+if (!window.jqueryLoaded) {
+  var script = document.createElement("script");
+  script.src = "https://code.jquery.com/jquery-3.4.1.min.js";
+  document.getElementsByTagName("head")[0].appendChild(script);
+  window.jqueryLoaded = true;
+}
+
+// let items = [
+//   {
+//     type: "video",
+//     name: "ENG.10.02.18A.mp4",
+//     position: 710,
+//   },
+//   {
+//     type: "audio",
+//     name: "59 SB10 U1 B1.4 P11.mp3",
+//     position: 1200,
+//   },
+//   {
+//     type: "h5p",
+//     name: "157 SB10 U1 AE1-3.html",
+//     position: 1300,
+//     height: 500,
+//   },
+// ];
+
+function insertContent(rootElement, items) {
   rootElement = $(rootElement);
-  // Page 35 (39.html)
-  const items = [
-    {
-      type: "video",
-      name: "ENG.10.02.18A.mp4",
-      position: 710,
-      height: 500,
-    },
-    {
-      type: "video",
-      name: "ENG.10.02.18A.mp4",
-      position: 1200,
-      height: 500,
-    },
-  ];
+
+  items.forEach((item) => {
+    setItemHeight(item);
+    setItemPath(item);
+  });
 
   const sections = getSections(items);
   const sectionElements = sections.map((section) =>
@@ -30,17 +46,19 @@ function insertContent(rootElement) {
 
   function addImage(section, shiftAmount) {
     shiftAmount = shiftAmount || 0;
-    const image = $(document.createElement("img"));
+    const image = $(document.createElement("div"));
     const top = section.start + shiftAmount;
     const height = (section.end || imageHeight) - section.start;
     image.css({
       position: "absolute",
-      top: top + "px",
-      width: imageWidth + "px",
-      height: height + "px",
+      top: top,
+      width: imageWidth,
+      height: height,
       background: `url('${imageSource}')`,
       "background-size": "cover",
-      "background-position-y": -section.start + "px",
+      "background-position-x": 0,
+      "background-position-y": -section.start,
+      "background-repeat": "no-repeat",
     });
 
     rootElement.prepend(image);
@@ -49,22 +67,60 @@ function insertContent(rootElement) {
   addImage({ start: 0, end: items[0].position });
   let totalContentHeight = 0;
 
+  const padding = 10;
   items.forEach((item, index) => {
-    const div = $(document.createElement("div")).css({
-      border: "2px solid red",
-      width: "100%",
-      position: "absolute",
-      top: item.position + totalContentHeight + "px",
-      height: item.height + "px",
-    });
+    const itemElement = createItemElement(item);
+    itemElement.css("top", item.position + totalContentHeight + padding);
+    rootElement.append(itemElement);
 
-    rootElement.append(div);
-    totalContentHeight += item.height;
-    shiftElements(sectionElements[index + 1], -totalContentHeight);
+    totalContentHeight += item.height + padding * 2;
+    shiftElementsDown(sectionElements[index + 1], totalContentHeight);
     addImage(sections[index + 1], totalContentHeight);
   });
 
   rootElement.height(rootElement.height() + totalContentHeight);
+}
+
+function setItemHeight(item) {
+  if (!item.height) {
+    switch (item.type) {
+      case "audio":
+        item.height = 54;
+        break;
+
+      case "video":
+        item.height = 491;
+        break;
+
+      default:
+        throw new Error("Height not specified for item: ", item.name);
+    }
+  }
+}
+
+function setItemPath(item) {
+  item.src = `assets/${item.type}/${item.name}`;
+}
+
+function createItemElement(item) {
+  let element;
+
+  switch (item.type) {
+    case "audio":
+    case "video":
+      element = $(document.createElement(item.type)).prop("controls", true);
+      break;
+
+    default:
+      element = $(document.createElement("iframe"));
+      break;
+  }
+
+  element
+    .prop("src", item.src)
+    .css({ position: "absolute", height: item.height });
+
+  return element;
 }
 
 function getSections(content) {
@@ -90,15 +146,26 @@ function getElementsInSection(rootElement, section) {
   });
 }
 
-function shiftElements(elements, amount) {
+function shiftElementsDown(elements, amount) {
   elements.each(function () {
     // Shift element vertically
     let str = $(this).css("bottom");
     str = str.substring(0, str.length - 2);
     const oldPos = Number(str);
-    const newPos = oldPos + amount;
-    $(this).css("bottom", newPos + "px");
+    const newPos = oldPos - amount;
+    $(this).css("bottom", newPos);
   });
 }
 
-insertContent();
+function addGuide(rootElement) {
+  const guide = $(document.createElement("div")).css({
+    position: "absolute",
+    width: "100%",
+    height: 5,
+    background: "red",
+    top: 300,
+  });
+
+  $(rootElement).append(guide);
+  return guide.get(0);
+}
