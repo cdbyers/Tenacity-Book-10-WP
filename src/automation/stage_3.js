@@ -41,7 +41,9 @@ function insertContent(rootElement, items) {
   const image = rootElement.find("img");
   const imageWidth = image.width();
   const imageHeight = image.height();
-  const imageSource = image.prop("src");
+  const imageSource = image
+    .prop("src")
+    .substring(window.location.origin.length);
   image.remove();
 
   function addImage(section, shiftAmount) {
@@ -70,7 +72,7 @@ function insertContent(rootElement, items) {
   const padding = 10;
   items.forEach((item, index) => {
     const itemElement = createItemElement(item);
-    itemElement.css("top", item.position + totalContentHeight + padding);
+    itemElement.css("top", item.position + padding + totalContentHeight);
     rootElement.append(itemElement);
 
     totalContentHeight += item.height + padding * 2;
@@ -79,6 +81,7 @@ function insertContent(rootElement, items) {
   });
 
   rootElement.height(rootElement.height() + totalContentHeight);
+  removeGuide(rootElement);
 }
 
 function setItemHeight(item) {
@@ -158,14 +161,20 @@ function shiftElementsDown(elements, amount) {
 }
 
 function addGuide(rootElement) {
-  const guide = $(document.createElement("div")).css({
-    position: "absolute",
-    width: "100%",
-    height: 5,
-    background: "red",
-    top: 300,
-  });
+  const guide = $(document.createElement("div"))
+    .css({
+      position: "absolute",
+      width: "100%",
+      height: 5,
+      background: "red",
+      top: 300,
+    })
+    .prop("id", "guide");
 
   $(rootElement).append(guide);
   return guide.get(0);
+}
+
+function removeGuide(rootElement) {
+  $(rootElement).children("div#guide").remove();
 }
