@@ -1,11 +1,3 @@
-// Load jQuery
-if (!window.jqueryLoaded) {
-  var script = document.createElement("script");
-  script.src = "https://code.jquery.com/jquery-3.4.1.min.js";
-  document.getElementsByTagName("head")[0].appendChild(script);
-  window.jqueryLoaded = true;
-}
-
 // let items = [
 //   {
 //     type: "video",
