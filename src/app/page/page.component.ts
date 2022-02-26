@@ -1,13 +1,12 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
-  OnInit,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-page',
@@ -35,6 +34,17 @@ export class PageComponent {
       .then((html) => {
         this.container.nativeElement.innerHTML = html;
         this.loadState = 'success';
+
+        const mediaElements = $(this.container.nativeElement).find(
+          'audio, video'
+        );
+        mediaElements.on({
+          play: function (e: Event) {
+            mediaElements.each(function (_index, element: any) {
+              if (element != e.target) element.pause();
+            });
+          },
+        });
       })
       .catch((err) => {
         this.loadState = 'error';
