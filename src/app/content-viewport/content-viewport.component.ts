@@ -1,12 +1,12 @@
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
   AfterViewInit,
   Component,
+  HostListener,
   Input,
-  OnInit,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Page } from '../types';
 import * as $ from 'jquery';
 
@@ -16,11 +16,12 @@ import * as $ from 'jquery';
   styleUrls: ['./content-viewport.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ContentViewportComponent implements OnInit, AfterViewInit {
+export class ContentViewportComponent implements AfterViewInit {
   pageWidth = 1000;
   @ViewChild('viewport') viewport!: CdkVirtualScrollViewport;
   @Input() pages!: Page[];
   private _page: number = 1;
+  private resizeDebounceTimeout: any;
 
   get page(): number {
     return this._page;
@@ -41,12 +42,22 @@ export class ContentViewportComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngOnInit(): void {}
-
   ngAfterViewInit() {
     window.setTimeout(() => {
-      this.pageWidth = this.viewport.elementRef.nativeElement.clientWidth;
-    }, 0);
+      this.updatePageWidth();
+    });
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    clearTimeout(this.resizeDebounceTimeout);
+    this.resizeDebounceTimeout = setTimeout(() => {
+      this.updatePageWidth();
+    }, 1000);
+  }
+
+  private updatePageWidth() {
+    this.pageWidth = this.viewport.elementRef.nativeElement.clientWidth;
     window.setTimeout(() => {
       this.viewport.scrollToIndex(this._page - 1);
     }, 100);

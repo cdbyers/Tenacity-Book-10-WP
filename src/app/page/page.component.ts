@@ -1,7 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
+  HostListener,
   Input,
+  NgZone,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -14,10 +17,13 @@ import * as $ from 'jquery';
   styleUrls: ['./page.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PageComponent {
-  private _pageId: number = 1;
+export class PageComponent implements AfterViewInit {
   loadState: 'loading' | 'success' | 'error' = 'loading';
+  zoom = 1;
   @ViewChild('container') container!: ElementRef;
+
+  private _pageId: number = 1;
+  private resizeDebounceTimeout: any;
 
   get pageId(): number {
     return this._pageId;
@@ -25,6 +31,14 @@ export class PageComponent {
   @Input() set pageId(value: number) {
     this._pageId = value;
     this.loadContent();
+  }
+
+  constructor() {}
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.updateZoom();
+    });
   }
 
   loadContent() {
@@ -55,5 +69,21 @@ export class PageComponent {
   handleDoubleClick() {
     if (!environment.production && this.loadState == 'success')
       this.loadContent();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    clearTimeout(this.resizeDebounceTimeout);
+    this.resizeDebounceTimeout = setTimeout(() => {
+      this.updateZoom();
+    }, 1000);
+  }
+
+  updateZoom() {
+    if (this.container) {
+      const page: HTMLDivElement = this.container.nativeElement;
+      const pageWidth = 955.91;
+      this.zoom = Math.min(1, page.parentElement!.clientWidth / pageWidth);
+    }
   }
 }
