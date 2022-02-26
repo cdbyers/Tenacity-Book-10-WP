@@ -7,9 +7,11 @@
       </span>
     </button>
 
-    <h1 class="flex-1 font-semibold text-2xl" style="margin: 0;">{{pages[currentPage-1].title}}</h1>
+    <h1 class="flex-1 font-semibold text-2xl"
+      style="margin: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+      {{pages[currentPage-1].title}}</h1>
 
-    <div class="text-2xl">
+    <div class="text-2xl hidden lg:block">
       <b class="text-blue">{{currentPage}}</b>
       <span>/</span>
       <b class="text-blue">{{pages.length}}</b>
@@ -28,20 +30,22 @@
         </span>
       </button>
 
-      <button *ngIf="!isFullscreen; else exitFullscreenBtn" aria-label="Fullscreen" title="Fullscreen"
-        (click)="toggleFullscreen()">
-        <span class="material-icons">
-          zoom_out_map
-        </span>
-      </button>
-
-      <ng-template #exitFullscreenBtn>
-        <button title="Exit Fullscreen" aria-label="Exit Fullscreen" (click)="toggleFullscreen()">
+      <div class="hidden lg:block">
+        <button *ngIf="!isFullscreen; else exitFullscreenBtn" aria-label="Fullscreen" title="Fullscreen"
+          (click)="toggleFullscreen()">
           <span class="material-icons">
-            close_fullscreen
+            zoom_out_map
           </span>
         </button>
-      </ng-template>
+
+        <ng-template #exitFullscreenBtn>
+          <button title="Exit Fullscreen" aria-label="Exit Fullscreen" (click)="toggleFullscreen()">
+            <span class="material-icons">
+              close_fullscreen
+            </span>
+          </button>
+        </ng-template>
+      </div>
     </div>
   </div>
 

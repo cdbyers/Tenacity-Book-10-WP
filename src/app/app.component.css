@@ -1,6 +1,6 @@
 .toolbar {
   @apply p-2;
-  @apply gap-8;
+  @apply gap-4 lg:gap-8;
   display: flex;
   align-items: center;
   z-index: 10;
@@ -35,13 +35,6 @@
 
 .controls button:disabled {
   opacity: 0.5;
-}
-
-mat-sidenav {
-  max-width: 30%;
-}
-
-mat-sidenav li {
 }
 
 mat-sidenav a {
