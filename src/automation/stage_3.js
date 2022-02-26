@@ -160,19 +160,33 @@ function shiftElementsDown(elements, amount) {
   });
 }
 
-function addGuide(rootElement) {
-  const guide = $(document.createElement("div"))
-    .css({
-      position: "absolute",
-      width: "100%",
-      height: 5,
-      background: "red",
-      top: 300,
-    })
-    .prop("id", "guide");
+function setPage(id) {
+  page = "#" + id;
+  pageDiv = $(page);
+  pageDiv.contextmenu(function (e) {
+    e.preventDefault();
+    const guide = $(document.createElement("div"))
+      .css({
+        position: "absolute",
+        width: "100%",
+        height: 5,
+        background: "red",
+        top: 300,
+      })
+      .prop("id", "guide");
 
-  $(rootElement).append(guide);
-  return guide.get(0);
+    pageDiv.append(guide);
+
+    pageDiv.on({
+      mousemove: function (event) {
+        guide.css({ top: event.offsetY });
+      },
+      click: function () {
+        console.log("Position:", guide.css("top"));
+        pageDiv.off("click mousemove");
+      },
+    });
+  });
 }
 
 function removeGuide(rootElement) {
