@@ -8,6 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Page } from '../types';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-content-viewport',
@@ -30,6 +31,13 @@ export class ContentViewportComponent implements OnInit, AfterViewInit {
     this._page = value;
     if (this.viewport) {
       this.viewport.scrollToIndex(value - 1, delta == 1 ? 'smooth' : undefined);
+
+      // Pause all videos & audio clips
+      $(this.viewport.getElementRef().nativeElement)
+        .find('audio, video')
+        .each(function (_index, element: any) {
+          element.pause();
+        });
     }
   }
 
