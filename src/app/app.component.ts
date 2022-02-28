@@ -2,6 +2,7 @@ import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Page } from './types';
 import pages from './pages';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private ngZone: NgZone) {
     this.pages = pages;
     this.onUrlChanged();
+
+    (window as any).$ = $;
 
     // For page links
     (window as any).goToPage = (page: number) => {
