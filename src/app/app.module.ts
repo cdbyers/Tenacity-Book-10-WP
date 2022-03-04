@@ -6,9 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { ContentViewportComponent } from './content-viewport/content-viewport.component';
 import { PageComponent } from './page/page.component';
+import { DictionaryPopupComponent } from './dictionary-popup/dictionary-popup.component';
 
 @NgModule({
-  declarations: [AppComponent, ContentViewportComponent, PageComponent],
+  declarations: [AppComponent, ContentViewportComponent, PageComponent, DictionaryPopupComponent],
   imports: [BrowserModule, BrowserAnimationsModule, MaterialModule],
   providers: [],
   bootstrap: [AppComponent],

@@ -5,6 +5,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatSidenavModule,
     MatProgressSpinnerModule,
     ScrollingModule,
+    MatDialogModule,
   ],
 })
 export class MaterialModule {}

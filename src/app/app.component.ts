@@ -3,6 +3,8 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Page } from './types';
 import pages from './pages';
 import * as $ from 'jquery';
+import { MatDialog } from '@angular/material/dialog';
+import { DictionaryPopupComponent } from './dictionary-popup/dictionary-popup.component';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private ngZone: NgZone) {
+  constructor(ngZone: NgZone, dialog: MatDialog) {
     this.pages = pages;
     this.onUrlChanged();
 
@@ -37,7 +39,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // For page links
     (window as any).goToPage = (page: number) => {
-      this.ngZone.run(() => (this.currentPage = page));
+      ngZone.run(() => (this.currentPage = page));
+    };
+
+    // For dictionary popup
+    (window as any).showDictionary = (word: string) => {
+      ngZone.run(() =>
+        dialog.open(DictionaryPopupComponent, {
+          data: word,
+        })
+      );
     };
   }
 
