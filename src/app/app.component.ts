@@ -47,6 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
       ngZone.run(() =>
         dialog.open(DictionaryPopupComponent, {
           data: word,
+          autoFocus: false,
         })
       );
     };
