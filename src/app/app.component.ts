@@ -72,10 +72,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   toggleSideNav() {
     this.isSideNavOpen = !this.isSideNavOpen;
-    if (this.isSideNavOpen)
-      this.sidenavScrollViewport.scrollToIndex(
-        Math.max(0, this.currentPage - 5)
-      );
+    if (this.isSideNavOpen) {
+      setTimeout(() => {
+        this.sidenavScrollViewport.scrollToIndex(
+          Math.max(0, this.currentPage - 5)
+        );
+      }, 1);
+    }
   }
 
   fullscreenChangeHandler = (() => {
