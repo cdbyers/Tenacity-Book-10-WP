@@ -11,6 +11,7 @@
 #page a {
   color: #224499;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 #page video,
