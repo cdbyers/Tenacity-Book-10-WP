@@ -8,9 +8,8 @@
 
 #menu-toggle {
   background-color: #1a73d9;
-  width: 3.6rem;
+  min-width: 3.6rem;
   height: 3.6rem;
-  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,12 +21,12 @@
 }
 
 .controls button {
-  width: 3.6em;
   height: 3.6em;
+  min-width: 3.6em;
   border-radius: 3px;
   background-color: #1a73d90d;
   color: #1a73d9;
-  padding: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;

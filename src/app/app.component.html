@@ -1,10 +1,11 @@
 <div class="flex flex-col h-full">
   <mat-progress-bar [value]="100 * currentPage/pages.length"></mat-progress-bar>
   <div class="toolbar shadow-md">
-    <button id="menu-toggle" (click)="toggleSideNav()">
+    <button id="menu-toggle" class="md:gap-2 md:px-2" (click)="toggleSideNav()">
       <span class="material-icons text-white">
         menu
       </span>
+      <span class="text-white hidden md:block" style="transform: translateY(1px);">MENU</span>
     </button>
 
     <h1 class="flex-1 font-semibold text-2xl"
@@ -12,13 +13,15 @@
       {{pages[currentPage-1].title}}</h1>
 
     <div class="controls none md:block">
-      <button [disabled]="currentPage == 1" (click)="currentPage = currentPage-1">
+      <button class="px-2" [disabled]="currentPage == 1" (click)="currentPage = currentPage-1">
         <span class="material-icons">
           arrow_back_ios_new
         </span>
+        <span class="hidden sm:block">Previous</span>
       </button>
 
-      <button [disabled]="currentPage == pages.length" (click)="currentPage = currentPage+1">
+      <button class="px-2" [disabled]="currentPage == pages.length" (click)="currentPage = currentPage+1">
+        <span class="hidden sm:block">Next</span>
         <span class="material-icons">
           arrow_forward_ios
         </span>
