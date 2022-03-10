@@ -1,11 +1,11 @@
 <div class="flex flex-col h-full">
   <mat-progress-bar [value]="100 * currentPage/pages.length"></mat-progress-bar>
   <div class="toolbar shadow-md">
-    <button id="menu-toggle" class="md:gap-2 md:px-2" (click)="toggleSideNav()">
+    <button id="menu-toggle" class="gap-2 px-2" (click)="toggleSideNav()">
       <span class="material-icons text-white">
         menu
       </span>
-      <span class="text-white hidden md:block" style="transform: translateY(1px);">MENU</span>
+      <span class="text-white" style="transform: translateY(2px);">MENU</span>
     </button>
 
     <h1 class="flex-1 font-semibold text-2xl"
