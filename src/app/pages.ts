@@ -5,7 +5,7 @@ const pages: Page[] = [
     title: 'Cover',
   },
   {
-    title: 'Take Good Care of This Textbook',
+    title: 'Introduction',
   },
   { title: 'Authors' },
   { title: 'Table of Contents' },
