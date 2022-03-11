@@ -75,6 +75,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.isSideNavOpen = !this.isSideNavOpen;
     if (this.isSideNavOpen) {
       setTimeout(() => {
+        this.sidenavScrollViewport.checkViewportSize();
         this.sidenavScrollViewport.scrollToIndex(
           Math.max(0, this.currentPage - 5)
         );
