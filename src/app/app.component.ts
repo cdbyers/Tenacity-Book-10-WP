@@ -1,4 +1,11 @@
-import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Page } from './types';
 import pages from './pages';
@@ -11,7 +18,7 @@ import { DictionaryPopupComponent } from './dictionary-popup/dictionary-popup.co
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   title = 'etlearns-book';
   isFullscreen = false;
   isSideNavOpen = false;
@@ -55,15 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isFullscreen = !!document.fullscreenElement;
-    document.addEventListener('fullscreenchange', this.fullscreenChangeHandler);
     window.addEventListener('popstate', () => this.onUrlChanged());
-  }
-
-  ngOnDestroy() {
-    document.removeEventListener(
-      'fullscreenchange',
-      this.fullscreenChangeHandler
-    );
   }
 
   toggleFullscreen() {
@@ -83,9 +82,15 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  fullscreenChangeHandler = (() => {
+  @HostListener('window:fullscreenchange')
+  onFullscreenStatusChanged() {
     this.isFullscreen = !!document.fullscreenElement;
-  }).bind(this);
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (event.code == 'ArrowLeft') this.currentPage--;
+    else if (event.code == 'ArrowRight') this.currentPage++;
+  }
 
   private onUrlChanged() {
     const urlParams = new URLSearchParams(window.location.search);
