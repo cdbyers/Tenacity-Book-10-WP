@@ -59,6 +59,16 @@ export class PageComponent implements AfterViewInit {
             });
           },
         });
+
+        $(this.container.nativeElement)
+          .find('iframe')
+          .on('load', (event) => {
+            const iframe = event.target;
+            iframe.contentDocument?.body.style.setProperty(
+              'zoom',
+              this.zoom.toString()
+            );
+          });
       })
       .catch((err) => {
         this.loadState = 'error';
