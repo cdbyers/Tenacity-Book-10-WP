@@ -1,6 +1,7 @@
 import {
   Component,
   HostListener,
+  Injector,
   NgZone,
   OnDestroy,
   OnInit,
@@ -12,6 +13,8 @@ import pages from './pages';
 import * as $ from 'jquery';
 import { MatDialog } from '@angular/material/dialog';
 import { DictionaryPopupComponent } from './dictionary-popup/dictionary-popup.component';
+import { createCustomElement } from '@angular/elements';
+import { DictationComponent } from './dictation/dictation.component';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +41,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  constructor(ngZone: NgZone, dialog: MatDialog) {
+  constructor(ngZone: NgZone, injector: Injector, dialog: MatDialog) {
     this.pages = pages;
     this.onUrlChanged();
 
@@ -58,6 +61,15 @@ export class AppComponent implements OnInit {
         })
       );
     };
+
+    // Dictation element
+    const dictationElementName = 'app-dictation';
+    if (!customElements.get(dictationElementName)) {
+      const DictationElement = createCustomElement(DictationComponent, {
+        injector,
+      });
+      customElements.define(dictationElementName, DictationElement);
+    }
   }
 
   ngOnInit() {

@@ -21,7 +21,8 @@
   margin-left: -300px;
 }
 
-#page iframe {
+#page iframe,
+#page app-dictation {
   left: 50%;
   width: 800px;
   margin-left: -400px;

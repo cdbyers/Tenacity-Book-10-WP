@@ -7,9 +7,10 @@ import { MaterialModule } from './material.module';
 import { ContentViewportComponent } from './content-viewport/content-viewport.component';
 import { PageComponent } from './page/page.component';
 import { DictionaryPopupComponent } from './dictionary-popup/dictionary-popup.component';
+import { DictationComponent } from './dictation/dictation.component';
 
 @NgModule({
-  declarations: [AppComponent, ContentViewportComponent, PageComponent, DictionaryPopupComponent],
+  declarations: [AppComponent, ContentViewportComponent, PageComponent, DictionaryPopupComponent, DictationComponent],
   imports: [BrowserModule, BrowserAnimationsModule, MaterialModule],
   providers: [],
   bootstrap: [AppComponent],
