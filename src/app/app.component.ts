@@ -3,13 +3,12 @@ import {
   HostListener,
   Injector,
   NgZone,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { Page } from './types';
-import pages from './pages';
+import { Page, Section } from './types';
+import pageData from './pages';
 import * as $ from 'jquery';
 import { MatDialog } from '@angular/material/dialog';
 import { DictionaryPopupComponent } from './dictionary-popup/dictionary-popup.component';
@@ -25,7 +24,8 @@ export class AppComponent implements OnInit {
   title = 'etlearns-book';
   isFullscreen = false;
   isSideNavOpen = false;
-  pages: Page[];
+  readonly pages: Page[];
+  readonly sections: Section[];
   @ViewChild('sidenavScrollViewport')
   sidenavScrollViewport!: CdkVirtualScrollViewport;
   private _currentPage = 1;
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
     return this._currentPage;
   }
   public set currentPage(value) {
-    if (value > 0 && value <= pages.length) {
+    if (value > 0 && value <= this.pages.length) {
       window.history.pushState(null, '', `/?page=${value}`);
       this._currentPage = value;
       this.isSideNavOpen = false;
@@ -42,7 +42,8 @@ export class AppComponent implements OnInit {
   }
 
   constructor(ngZone: NgZone, injector: Injector, dialog: MatDialog) {
-    this.pages = pages;
+    this.sections = pageData.sections;
+    this.pages = pageData.pages;
     this.onUrlChanged();
 
     (window as any).$ = $;
@@ -75,6 +76,12 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.isFullscreen = !!document.fullscreenElement;
     window.addEventListener('popstate', () => this.onUrlChanged());
+  }
+
+  isInSection(section: Section) {
+    return section.end
+      ? this.currentPage >= section.start && this.currentPage <= section.end
+      : this.currentPage == section.start;
   }
 
   toggleFullscreen() {

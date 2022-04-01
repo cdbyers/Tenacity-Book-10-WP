@@ -48,9 +48,9 @@
   <mat-sidenav-container class="flex-1">
     <mat-sidenav [(opened)]="isSideNavOpen">
       <cdk-virtual-scroll-viewport #sidenavScrollViewport itemSize="50" style="width: 400px; height: 100%;">
-        <div *cdkVirtualFor="let page of pages, let index=index" style="height: 50px;">
-          <a [class.active]="currentPage == index+1" (click)="currentPage = index+1" [title]="page.title">
-            <span style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{page.title}}</span>
+        <div *cdkVirtualFor="let section of sections, let index=index" style="height: 50px;">
+          <a [class.active]="isInSection(section)" (click)="currentPage = section.start" [title]="section.name">
+            <span style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{section.name}}</span>
           </a>
         </div>
       </cdk-virtual-scroll-viewport>
