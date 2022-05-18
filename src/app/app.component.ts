@@ -29,12 +29,16 @@ export class AppComponent implements OnInit {
   @ViewChild('sidenavScrollViewport')
   sidenavScrollViewport!: CdkVirtualScrollViewport;
   private _currentPage = 1;
+  private readonly pagesToSkip = [119, 176, 232];
 
   public get currentPage() {
     return this._currentPage;
   }
   public set currentPage(value) {
     if (value > 0 && value <= this.pages.length) {
+      if (this.pagesToSkip.includes(value))
+        value = this._currentPage > value ? value - 1 : value + 1;
+
       window.history.pushState(null, '', `/?page=${value}`);
       this._currentPage = value;
       this.isSideNavOpen = false;
