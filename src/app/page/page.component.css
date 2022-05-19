@@ -22,6 +22,17 @@
   cursor: pointer;
 }
 
+#page h1.exercise {
+  padding: 1rem;
+  border-top: 2px solid rgb(148, 148, 148);
+  border-bottom: 2px solid rgb(148, 148, 148);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
 #page video,
 #page audio {
   left: 50%;
