@@ -2,8 +2,8 @@ import { Page, Section } from './types';
 
 const sections: Section[] = [
   { name: 'Cover', start: 1 },
-  { name: 'Introduction', start: 2 },
-  { name: 'Authors', start: 3 },
+  { name: 'Authors', start: 2 },
+  { name: 'Introduction', start: 3 },
   { name: 'Table of Contents', start: 4 },
   { name: 'Unit 1', start: 5, end: 20 },
   { name: 'Unit 2', start: 21, end: 36 },
