@@ -26,6 +26,7 @@ const sections: Section[] = [
   { name: 'Appendix 3', start: 241, end: 242 },
   { name: 'Appendix 4', start: 243, end: 253 },
   { name: 'Appendix 5', start: 254, end: 255 },
+  { name: 'Acknowledgements', start: 256 },
 ];
 
 const pages: Page[] = [];
